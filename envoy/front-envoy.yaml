@@ -46,6 +46,15 @@ static_resources:
               socket_address:
                 address: 127.0.0.1
                 port_value: 8010
+    health_checks:
+    - timeout: 1s
+      interval: 60s
+      interval_jitter: 1s
+      unhealthy_threshold: 3
+      healthy_threshold: 3
+      tcp_health_check: {}
+      event_log_path: "./healthcheck.log"
+      always_log_health_check_failures: true
   - name: service2
     connect_timeout: 1s
     type: static
@@ -60,6 +69,15 @@ static_resources:
               socket_address:
                 address: 127.0.0.1
                 port_value: 8020
+    health_checks:
+    - timeout: 1s
+      interval: 60s
+      interval_jitter: 1s
+      unhealthy_threshold: 3
+      healthy_threshold: 3
+      tcp_health_check: {}
+      event_log_path: "./healthcheck.log"
+      always_log_health_check_failures: true
 admin:
   access_log_path: "/dev/null"
   address:
