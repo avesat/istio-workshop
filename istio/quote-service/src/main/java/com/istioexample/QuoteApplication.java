@@ -24,12 +24,17 @@ public class QuoteApplication {
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
 
-        var jokesDbUrl = System.getenv().getOrDefault("JOKES_DB_URL", "http://api.icndb.com/jokes/random");
+        var jokesDbUrl = System.getenv().getOrDefault("JOKES_DB_URL", "http://api.icndb.com");
+        var excludeExplicit = System.getenv().getOrDefault("EXCLUDE_EXPLICIT", "true");
+        var jokeUrl = jokesDbUrl + "/jokes/random";
+        if (Boolean.parseBoolean(excludeExplicit)) {
+            jokeUrl += "?exclude=explicit";
+        }
         var request = HttpRequest.newBuilder()
-                .uri(URI.create(jokesDbUrl))
+                .uri(URI.create(jokeUrl))
                 .timeout(Duration.ofMinutes(1))
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.noBody())
+                .GET()
                 .build();
 
         server.createContext("/joke", exchange -> {
@@ -45,6 +50,8 @@ public class QuoteApplication {
     private static byte[] getJokeAsBytes(ObjectMapper objectMapper, HttpClient client, HttpRequest request) {
         var response = client.send(request, HttpResponse.BodyHandlers.ofString());
         var quoteResult = objectMapper.readValue(response.body(), QuoteResult.class);
-        return objectMapper.writeValueAsBytes(quoteResult.getValue());
+        var joke = quoteResult.getValue();
+        joke.setRating("Check Norris jokes are the best jokes!");
+        return objectMapper.writeValueAsBytes(joke);
     }
 }
