@@ -11,23 +11,6 @@ spec:
     - match:
       - uri:
           prefix: /
-        headers:
-          x-test-user:
-            exact: "true"
-      route:
-        - destination:
-            host: chuck-ui
-            subset: v2
-            port:
-              number: 3000
-      fault:
-        delay:
-          fixedDelay: 1s
-          percentage:
-            value: 100
-    - match:
-      - uri:
-          prefix: /
       route:
         - destination:
             host: chuck-ui
