@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: jokes-db-default
+spec:
+  hosts:
+    - api.icndb.com
+  http:
+    - route:
+        - destination:
+            host: api.icndb.com
+      fault:
+        delay:
+          fixedDelay: 3s
+          percentage:
+            value: 100          
