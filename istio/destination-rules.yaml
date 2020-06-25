@@ -6,11 +6,11 @@ metadata:
 spec:
   host: chuck-ui
   subsets:
-  - name: v1
+  - name: "v1"
     labels:
       serving: "true"
-      version: "1.0"
-  - name: v2
+      version: "v1"
+  - name: "v2"
     labels:
       serving: "true"
-      version: "2.0"
+      version: "v2"

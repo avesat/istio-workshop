@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: chuck-ui
-        version: "1.0"
+        version: "v1"
         serving: "true"
     spec:
       containers:
@@ -29,7 +29,7 @@ spec:
   selector:
     matchLabels:
       app: chuck-ui
-      version: "1.0"
+      version: "v1"
       serving: "true"
 ---
 apiVersion: v1

@@ -11,6 +11,18 @@ spec:
     - match:
       - uri:
           prefix: /
+        headers:
+          x-test-user:
+            exact: "true"
+      route:
+        - destination:
+            host: chuck-ui
+            subset: v2
+            port:
+              number: 3000
+    - match:
+      - uri:
+          prefix: /
       route:
         - destination:
             host: chuck-ui
