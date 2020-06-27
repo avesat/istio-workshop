@@ -44,6 +44,18 @@ kubectl port-forward svc/istio-ingressgateway 8088:80 -n istio-system
 ```
 
 ```
+kubectl -n istio-system apply -f attribute_gen_service.yaml
+```
+
+```
+kubectl -n istio-system get envoyfilter stats-filter-1.6 -o yaml > stats-filter-1.6.yaml
+```
+
+```
+kubectl -n istio-system apply -f stats-filter-1.6.yaml
+```
+
+```
 http://localhost:8088/
 ```
 
